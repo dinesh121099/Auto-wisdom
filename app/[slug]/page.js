@@ -9,7 +9,7 @@ export default function SlugPage() {
     const { slug } = useParams();
     const [data, setData] = useState(null);
     const [imgInd, setimgInd] = useState(0);
-    const endpoint = "http://localhost:3000/api/data";
+    const endpoint = "/api/data";
 
     function api_Call(endpoint) {
         axios

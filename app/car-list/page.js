@@ -14,7 +14,7 @@ import Link from "next/link";
 
 export default function Home() {
     const [data, setData] = useState(null);
-    const endpoint = "http://localhost:3000/api/data";
+    const endpoint = "/api/data";
 
     function api_Call(endpoint) {
         axios

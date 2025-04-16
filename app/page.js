@@ -37,24 +37,25 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-10 flex justify-center px-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle>LOG IN</CardTitle>
-          <CardDescription>Having an account already?</CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col space-y-4">
-          <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
-            <Label htmlFor="email" className="my-2">Your email address</Label>
-            <Input
-              id="email"
-              type="email"
-              placeholder="Enter Email"
-              className="my-2" value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required />
-            <Label htmlFor="password" className="my-2">Your password</Label>
-            <Input
+    <>
+      <div className="mt-10 flex justify-center px-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle>LOG IN</CardTitle>
+            <CardDescription>Having an account already?</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col space-y-4">
+            <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
+              <Label htmlFor="email" className="my-2">Your email address</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="Enter Email"
+                className="my-2" value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required />
+              <Label htmlFor="password" className="my-2">Your password</Label>
+              <Input
                 id="password"
                 type="password"
                 placeholder="Enter Password"
@@ -62,15 +63,17 @@ export default function Home() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-            <Button type="submit" className="w-full">Login</Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col items-center space-y-3">
-          <hr className="w-full border-t" />
-          <CardDescription>Don't have an account?</CardDescription>
-          <Button variant="outline" className="w-full">Sign Up</Button>
-        </CardFooter>
-      </Card>
-    </div>
+              <Button type="submit" className="w-full">Login</Button>
+            </form>
+          </CardContent>
+          <CardFooter className="flex flex-col items-center space-y-3">
+            <hr className="w-full border-t" />
+            <CardDescription>Don&apos;t have an account?</CardDescription>
+            <Button variant="outline" className="w-full">Sign Up</Button>
+          </CardFooter>
+        </Card>
+      </div>
+        <p className="text-gray-400 flex justify-center">Use email: test@gmail.com....Use password: testproject</p>
+    </>
   );
 }

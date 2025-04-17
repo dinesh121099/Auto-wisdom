@@ -15,8 +15,8 @@ export default function Header() {
             </div>
             <div className="mx-10">
                 <a className="mx-7 p-1 px-2 bg-white hover:shadow-lg rounded-md" href="/">Log In</a>
-                <a className="mx-7 p-1 px-2 bg-white hover:shadow-lg rounded-md" href="/">Contacts</a>
-                <a className="mx-7 p-1 px-2 bg-white hover:shadow-lg rounded-md" href="/">About Us</a>
+                <a className="mx-7 p-1 px-2 bg-white hover:shadow-lg rounded-md" href="#">Contacts</a>
+                <a className="mx-7 p-1 px-2 bg-white hover:shadow-lg rounded-md" href="#">About Us</a>
             </div>
         </div>
     );

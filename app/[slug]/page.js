@@ -9,6 +9,7 @@ export default function SlugPage() {
     const { slug } = useParams();
     const [data, setData] = useState(null);
     const [imgInd, setimgInd] = useState(0);
+    const [prevInd, SetprevInd] = useState(0);
     const endpoint = "/api/data";
 
     function api_Call(endpoint) {
@@ -62,9 +63,19 @@ export default function SlugPage() {
                                 .map(([clrname, clr], index) => (
                                     <div key={clrname}
                                         className="w-20 flex flex-col items-center cursor-pointer"
-                                        onClick={() => setimgInd(index)}>
+                                        onClick={() => {
+                                            setimgInd(index)
+                                            SetprevInd(index)
+                                            }
+                                        }
+                                        onMouseEnter={() => setimgInd(index)}
+                                        onMouseLeave={() => setimgInd(prevInd)}>
                                         <span
-                                            className="w-5 h-5 rounded-full border border-gray-400 hover:shadow-xl transition"
+                                            className="w-5 h-5 rounded-full p-2
+                                            border border-gray-400
+                                            transition duration-300 ease-in-out
+                                            transform hover:-translate-y-2
+                                            hover:shadow-lg"
                                             style={{ backgroundColor: clr }}
                                             title={clrname}
                                         />

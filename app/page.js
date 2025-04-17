@@ -31,7 +31,7 @@ export default function Home() {
 
     if (res.ok) {
       router.push('/car-list');
-      toast.success("Login successful")
+      toast.success("Login successful");
     } else {
       const data = await res.json();
       toast.error(data.message || 'Incorrect Email or Password, Login failed');

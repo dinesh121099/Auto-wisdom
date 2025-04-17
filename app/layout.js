@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
       <body>
           <Header />
         {children}
-        <ToastContainer />
+        <ToastContainer position="bottom-right" theme="light" closeOnClick draggable/>
       </body>
     </html>
   );

@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "react-toastify";
 
 export default function Home() {
   const [email, setEmail] = useState("");
@@ -20,7 +21,7 @@ export default function Home() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Submitted:", { email, password });
+    //console.log("Submitted:", { email, password });
 
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -30,9 +31,10 @@ export default function Home() {
 
     if (res.ok) {
       router.push('/car-list');
+      toast.success("Login successful")
     } else {
       const data = await res.json();
-      console.log(data.message || 'Login failed');
+      toast.error(data.message || 'Incorrect Email or Password, Login failed');
     }
   };
 

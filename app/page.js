@@ -17,11 +17,13 @@ import { toast } from "react-toastify";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     //console.log("Submitted:", { email, password });
+    setLoading(true);
 
     const res = await fetch('/api/login', {
       method: 'POST',
@@ -36,6 +38,7 @@ export default function Home() {
       const data = await res.json();
       toast.error(data.message || 'Incorrect Email or Password, Login failed');
     }
+    setLoading(false);
   };
 
   return (
@@ -65,7 +68,7 @@ export default function Home() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full">Login</Button>
+              <Button type="submit" className="w-full" disabled={loading}>Login</Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-3">

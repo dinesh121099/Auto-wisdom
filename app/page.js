@@ -16,21 +16,21 @@ import { toast } from "react-toastify";
 
 export default function Home() {
   const [email, setEmail] = useState("");
+  const [validEmail, setvalidEmail] = useState(true);
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log("Submitted:", { email, password });
     setLoading(true);
 
-    const res = await fetch('/api/login', {
+    if(validate()){
+      const res = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
-
     if (res.ok) {
       router.push('/car-list');
       toast.success("Login successful");
@@ -38,9 +38,20 @@ export default function Home() {
       const data = await res.json();
       toast.error(data.message || 'Incorrect Email or Password, Login failed');
     }
+  }
     setLoading(false);
   };
 
+  const validate = () => {
+    if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)){
+      setvalidEmail(false);
+      return false;
+    }
+    else{
+      setvalidEmail(true);
+      return true;
+    }
+  }
   return (
     <>
       <div className="mt-10 flex justify-center px-4">
@@ -56,9 +67,11 @@ export default function Home() {
                 id="email"
                 type="email"
                 placeholder="Enter Email"
-                className="my-2" value={email}
+                className="my-2" 
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required />
+                <p className="text-xs text-red-500 ml-2 ">{validEmail ? null : 'Please enter a valid email'}</p>
               <Label htmlFor="password" className="my-2">Your password</Label>
               <Input
                 id="password"
@@ -68,7 +81,9 @@ export default function Home() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-full" disabled={loading}>Login</Button>
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? 'Loading...' : 'Login'}
+              </Button>
             </form>
           </CardContent>
           <CardFooter className="flex flex-col items-center space-y-3">

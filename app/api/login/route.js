@@ -5,9 +5,10 @@ export async function POST(req) {
 
   if (email === 'test@gmail.com' && password === 'testproject') {
     return NextResponse.json({ success: true });
-  } else {
+  } 
+  else {
     return NextResponse.json(
-      { success: false, message: 'Invalid credentials' },
+      { success: false, message: 'Server responds: Invalid credentials' },
       { status: 401 }
     );
   }

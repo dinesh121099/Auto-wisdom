@@ -4,23 +4,39 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 export default function SlugPage() {
     const { slug } = useParams();
     const [data, setData] = useState(null);
     const [imgInd, setimgInd] = useState(0);
     const [prevInd, SetprevInd] = useState(0);
+    const router = useRouter();
     const endpoint = "/api/data";
 
     function api_Call(endpoint) {
+        const token = localStorage.getItem('token');
         axios
-            .get(endpoint)
+            .get(endpoint, 
+                // {
+                // headers: {
+                //     Authorization: `Bearer ${token}`
+                // }
+                // }
+            )
             .then(res => {
                 const var_code = slug.split('-').slice(1).join('-');
                 const [filteredData] = res.data.filter((ele) => ele.variant_code == var_code);
+                ;
                 setData(filteredData);
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                toast.error(err.response.data.error);
+                toast.info('Redirecting: Try loging in again');
+                router.push('/');
+            }
+            )
     }
     useEffect(() => {
         api_Call(endpoint);

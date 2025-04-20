@@ -1,10 +1,12 @@
 import { NextResponse } from 'next/server';
+import jwt from 'jsonwebtoken';
 
 export async function POST(req) {
   const { email, password } = await req.json();
 
   if (email === 'test@gmail.com' && password === 'testproject') {
-    return NextResponse.json({ success: true });
+    const token = jwt.sign({ email }, process.env.JWT_SECRET, {expiresIn: '1h'});
+    return NextResponse.json({ success: true, token });
   } 
   else {
     return NextResponse.json(

@@ -25,24 +25,26 @@ export default function Home() {
     e.preventDefault();
     setLoading(true);
 
-    if(validate()){
+    if(validateEmail()){
       const res = await fetch('/api/login', {
       method: 'POST',
       body: JSON.stringify({ email, password }),
       headers: { 'Content-Type': 'application/json' },
     });
+    const data = await res.json();
     if (res.ok) {
+      localStorage.setItem('token', data.token);
       router.push('/car-list');
       toast.success("Login successful");
-    } else {
-      const data = await res.json();
+    } 
+    else {
       toast.error(data.message || 'Incorrect Email or Password, Login failed');
     }
   }
     setLoading(false);
   };
 
-  const validate = () => {
+  const validateEmail = () => {
     if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)){
       setvalidEmail(false);
       return false;
@@ -67,17 +69,16 @@ export default function Home() {
                 id="email"
                 type="email"
                 placeholder="Enter Email"
-                className="my-2" 
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required />
-                <p className="text-xs text-red-500 ml-2 ">{validEmail ? null : 'Please enter a valid email'}</p>
+                <p className="text-xs text-red-500 ml-2 mt-[-7px] mb-[0px]">{validEmail ? null : 'Please enter a valid email'}</p>
               <Label htmlFor="password" className="my-2">Your password</Label>
               <Input
                 id="password"
                 type="password"
                 placeholder="Enter Password"
-                value={password}
+                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />

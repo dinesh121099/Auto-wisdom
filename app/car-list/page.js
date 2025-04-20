@@ -15,10 +15,15 @@ import Link from "next/link";
 export default function Home() {
     const [data, setData] = useState(null);
     const endpoint = "/api/data";
+    const token = localStorage.getItem('token') || "Unknown Authorization";
 
     function api_Call(endpoint) {
         axios
-            .get(endpoint)
+            .get(endpoint, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(res => setData(res.data))
             .catch(err => console.error(err))
     }

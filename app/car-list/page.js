@@ -18,7 +18,8 @@ export default function Home() {
 
     function api_Call(endpoint) {
         if (typeof window === 'undefined') return;
-        const token = localStorage.getItem('token') || "Unknown Authorization";
+
+        const token = localStorage.getItem('token');
         axios
             .get(endpoint, {
                 headers: {

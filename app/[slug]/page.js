@@ -16,27 +16,24 @@ export default function SlugPage() {
     const endpoint = "/api/data";
 
     function api_Call(endpoint) {
+        if (typeof window === 'undefined') return;
         const token = localStorage.getItem('token');
         axios
-            .get(endpoint, 
-                // {
-                // headers: {
-                //     Authorization: `Bearer ${token}`
-                // }
-                // }
-            )
+            .get(endpoint, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
             .then(res => {
                 const var_code = slug.split('-').slice(1).join('-');
                 const [filteredData] = res.data.filter((ele) => ele.variant_code == var_code);
-                ;
                 setData(filteredData);
             })
             .catch(err => {
                 toast.error(err.response.data.error);
                 toast.info('Redirecting: Try loging in again');
                 router.push('/');
-            }
-            )
+            })
     }
     useEffect(() => {
         api_Call(endpoint);
@@ -46,7 +43,6 @@ export default function SlugPage() {
 
     useEffect(() => {
         const groupedFeatures = {};
-
         data?.carFeatures.forEach(({ name, value, category }) => {
             if (value === "Yes") {
                 if (!groupedFeatures[category]) {

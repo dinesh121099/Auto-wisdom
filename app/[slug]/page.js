@@ -105,7 +105,7 @@ export default function SlugPage() {
                     </div>
                 </CardContent>
                 <CardFooter className="flex flex-col items-center">
-                    <Tabs defaultValue="Features" className="w-5/6 p-4 border">
+                    <Tabs defaultValue="Specifications" className="w-5/6 p-4 border">
                         <TabsList>
                             <TabsTrigger value="Features">Features</TabsTrigger>
                             <TabsTrigger value="Specifications">Specifications</TabsTrigger>

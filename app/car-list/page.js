@@ -10,11 +10,14 @@ import {
     CardTitle
 } from "@/components/ui/card";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 
 export default function Home() {
     const [data, setData] = useState(null);
     const endpoint = "/api/data";
+    const router = useRouter();
 
     function api_Call(endpoint) {
         if (typeof window === 'undefined') return;
@@ -26,7 +29,11 @@ export default function Home() {
                 }
             })
             .then(res => setData(res.data))
-            .catch(err => console.error(err))
+            .catch(err => {
+                toast.error(err.response.data.error);
+                toast.info('Redirecting: Try loging in again');
+                router.push('/');
+            })
     }
     useEffect(() => {
         api_Call(endpoint);
